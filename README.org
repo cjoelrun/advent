@@ -8,6 +8,3 @@
   #+BEGIN_SRC sh
     ./run.rb < inputs/document1.txt
   #+END_SRC
-
-
-* Part 2
