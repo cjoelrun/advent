@@ -10,3 +10,9 @@
   #+BEGIN_SRC sh
     ./run.rb < inputs/document1.txt
   #+END_SRC
+
+* Part 1
+
+  #+BEGIN_SRC sh
+    ./run2.rb < inputs/document1.txt
+  #+END_SRC

@@ -6,9 +6,9 @@ describe Puzzle do
   it 'should parse directions correctly' do
     puzzle = Puzzle.new('R4, R3, R5, L3, L10')
     expected = [['R', 4], ['R', 3], ['R', 5], ['L', 3], ['L', 10]]
-    puzzle.directions.zip(expected).each do |actual, expected|
-      expect(actual.direction).to eq expected[0]
-      expect(actual.distance).to eq expected[1]
+    puzzle.directions.zip(expected).each do |actual, e|
+      expect(actual.direction).to eq e[0]
+      expect(actual.distance).to eq e[1]
     end
   end
 
@@ -19,7 +19,8 @@ describe Puzzle do
       ['R1, L1', 2],
       ['L1, L1', 2],
       ['L1, R1', 2],
-      ['R1, R1', 2]
+      ['R1, R1', 2],
+      ['R0, L0', 0]
   ].each do |document, distance|
     describe "Given the document #{document}" do
       it "returns the correct distance of #{distance}" do
@@ -48,6 +49,26 @@ describe Puzzle do
 
   it 'should raise DirectionError when given bad direction' do
     expect { Puzzle.new('U1') }.to raise_error(DirectionError)
+  end
+
+  [
+      ['R8, R4, R4, R8', 4],
+      ['L8, L4, L4, L8', 4],
+      ['L8, R4, R4, R8', 4],
+      ['L8, L4, L4, L8', 4]
+  ].each do |document, distance|
+    describe "Given the document #{document}" do
+      it "returns the correct distance of #{distance} for challenge 2" do
+        puzzle = Puzzle.new(document, true)
+        #puts "#{puzzle.location} hi\n"
+        expect(puzzle.distance).to eq(distance)
+      end
+    end
+  end
+
+  it 'should raise Exception when given challenge 2 without a solution' do
+    puzzle = Puzzle.new('L8, L4, L4, L3', true)
+    expect { puzzle.distance }.to raise_error(NoSolutionError)
   end
 
 end
